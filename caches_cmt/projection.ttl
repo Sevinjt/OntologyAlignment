@@ -1,0 +1,406 @@
+@prefix owl2vec: <http://www.semanticweb.org/owl2vec#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://cmt#markConflictOfInterest> rdfs:comment """In CMT terms, a ‘Conflict of Interest’ is an association between a specific Reviewer and a specific Paper that states there is a conflict of interest between that Reviewer and that paper. Conflicts can be marked by Authors (during paper submission) or by Reviewers (in Phase 2) or by Chairmen (in Phase 3).
+
+Based on that conflict, the reviewer will not be able to bid on the paper, be assigned to that paper (either automatically by the system or manually by a Chairman) or view review submissions for that paper.
+"""^^xsd:string .
+
+<http://cmt#Acceptance> rdfs:subClassOf <http://cmt#Decision> .
+
+<http://cmt#AuthorNotReviewer> rdfs:subClassOf <http://cmt#Author> .
+
+<http://cmt#Meta-Review> rdfs:subClassOf <http://cmt#Review> .
+
+<http://cmt#PaperAbstract> rdfs:subClassOf <http://cmt#Paper> .
+
+<http://cmt#PaperFullVersion> rdfs:subClassOf <http://cmt#Paper> .
+
+<http://cmt#Rejection> rdfs:subClassOf <http://cmt#Decision> .
+
+<http://conference#Abstract> rdfs:subClassOf <http://conference#Extended_abstract> .
+
+<http://conference#Call_for_paper> rdfs:subClassOf <http://conference#Conference_document> .
+
+<http://conference#Call_for_participation> rdfs:subClassOf <http://conference#Conference_document> .
+
+<http://conference#Camera_ready_contribution> rdfs:subClassOf <http://conference#Accepted_contribution> .
+
+<http://conference#Conference> owl2vec:superClassOf <http://conference#Conference_volume> .
+
+<http://conference#Conference_announcement> rdfs:subClassOf <http://conference#Conference_document> .
+
+<http://conference#Conference_www> rdfs:subClassOf <http://conference#Conference_document> .
+
+<http://conference#Contribution_1th-author> rdfs:subClassOf <http://conference#Regular_author> .
+
+<http://conference#Contribution_co-author> rdfs:subClassOf <http://conference#Regular_author> .
+
+<http://conference#Information_for_participants> rdfs:subClassOf <http://conference#Conference_document> .
+
+<http://conference#Organization> owl2vec:superClassOf <http://conference#Organizer> .
+
+<http://cmt#AssociatedChair> owl2vec:superClassOf <http://cmt#Chairman> ;
+    rdfs:subClassOf <http://cmt#ConferenceMember> .
+
+<http://cmt#Bid> a <http://cmt#Bid> ;
+    owl2vec:typeOf <http://cmt#Bid> .
+
+<http://cmt#Conference> a <http://cmt#Conference> ;
+    owl2vec:typeOf <http://cmt#Conference> .
+
+<http://cmt#ConferenceChair> owl2vec:superClassOf <http://cmt#Chairman> ;
+    rdfs:subClassOf <http://cmt#ConferenceMember> .
+
+<http://cmt#ProgramCommittee> a <http://cmt#ProgramCommittee> ;
+    owl2vec:typeOf <http://cmt#ProgramCommittee> .
+
+<http://cmt#SubjectArea> a <http://cmt#SubjectArea> ;
+    owl2vec:typeOf <http://cmt#SubjectArea> .
+
+<http://conference#Conference_applicant> owl2vec:superClassOf <http://conference#Registeered_applicant> ;
+    rdfs:subClassOf <http://conference#Person> .
+
+<http://conference#Conference_proceedings> a <http://conference#Conference_proceedings> ;
+    owl2vec:typeOf <http://conference#Conference_proceedings> .
+
+<http://conference#Early_paid_applicant> owl2vec:superClassOf <http://conference#Paid_applicant> ;
+    rdfs:subClassOf <http://conference#Paid_applicant> .
+
+<http://conference#Important_dates> a <http://conference#Important_dates> ;
+    owl2vec:typeOf <http://conference#Important_dates> .
+
+<http://conference#Late_paid_applicant> owl2vec:superClassOf <http://conference#Paid_applicant> ;
+    rdfs:subClassOf <http://conference#Paid_applicant> .
+
+<http://conference#Organizer> rdfs:subClassOf <http://conference#Committee_member>,
+        <http://conference#Organization> .
+
+<http://conference#Paper> owl2vec:superClassOf <http://conference#Regular_contribution> ;
+    rdfs:subClassOf <http://conference#Regular_contribution> .
+
+<http://conference#Passive_conference_participant> owl2vec:superClassOf <http://conference#Conference_participant> ;
+    rdfs:subClassOf <http://conference#Conference_participant> .
+
+<http://conference#Publisher> a <http://conference#Publisher> ;
+    owl2vec:typeOf <http://conference#Publisher> .
+
+<http://conference#Registeered_applicant> owl2vec:superClassOf <http://conference#Paid_applicant> ;
+    rdfs:subClassOf <http://conference#Conference_applicant> .
+
+<http://conference#Rejected_contribution> owl2vec:superClassOf <http://conference#Reviewed_contribution> ;
+    rdfs:subClassOf <http://conference#Reviewed_contribution> .
+
+<http://conference#Review_expertise> a <http://conference#Review_expertise> ;
+    owl2vec:typeOf <http://conference#Review_expertise> .
+
+<http://conference#Review_preference> a <http://conference#Review_preference> ;
+    owl2vec:typeOf <http://conference#Review_preference> .
+
+<http://conference#Topic> a <http://conference#Topic> ;
+    owl2vec:typeOf <http://conference#Topic> .
+
+<http://cmt#Administrator> a <http://cmt#Administrator> ;
+    owl2vec:typeOf <http://cmt#Administrator> ;
+    rdfs:subClassOf <http://cmt#User> .
+
+<http://cmt#Co-author> a <http://cmt#Co-author> ;
+    owl2vec:typeOf <http://cmt#Co-author> ;
+    rdfs:subClassOf <http://cmt#Author> .
+
+<http://cmt#ExternalReviewer> a <http://cmt#ExternalReviewer> ;
+    owl2vec:typeOf <http://cmt#ExternalReviewer> ;
+    rdfs:comment "An External Reviewer is a person that has been assigned to review a paper for another Reviewer, but is not themselves a Reviewer. "^^xsd:string ;
+    rdfs:subClassOf <http://cmt#Person> .
+
+<http://cmt#Meta-Reviewer> a <http://cmt#Meta-Reviewer> ;
+    owl2vec:typeOf <http://cmt#Meta-Reviewer> ;
+    rdfs:comment "A special type of Reviewer.  There can be any number of Reviewers for a given paper, but only one Meta-Reviewer.  The Meta-Reviewer can go over all the reviews submitted for the paper and submit their own review.  Questions for the Meta-Reviewer can be different from those for a normal Reviewer.  Their role is to ensure that the reviews are good and consistent. The decision to use Meta-Reviewers is optional, and must be set before paper assignment occurs."^^xsd:string ;
+    rdfs:subClassOf <http://cmt#Reviewer> .
+
+<http://conference#Accepted_contribution> owl2vec:superClassOf <http://conference#Camera_ready_contribution>,
+        <http://conference#Reviewed_contribution> ;
+    rdfs:subClassOf <http://conference#Reviewed_contribution> .
+
+<http://conference#Chair> a <http://conference#Chair> ;
+    owl2vec:typeOf <http://conference#Chair> ;
+    rdfs:subClassOf <http://conference#Committee_member> .
+
+<http://conference#Co-chair> a <http://conference#Co-chair> ;
+    owl2vec:typeOf <http://conference#Co-chair> ;
+    rdfs:subClassOf <http://conference#Committee_member> .
+
+<http://conference#Conference_volume> a <http://conference#Conference_volume> ;
+    owl2vec:typeOf <http://conference#Conference_volume> ;
+    rdfs:subClassOf <http://conference#Conference> .
+
+<http://conference#Extended_abstract> owl2vec:superClassOf <http://conference#Abstract>,
+        <http://conference#Regular_contribution> ;
+    rdfs:subClassOf <http://conference#Regular_contribution> .
+
+<http://conference#Track-workshop_chair> a <http://conference#Track-workshop_chair> ;
+    owl2vec:typeOf <http://conference#Track-workshop_chair> ;
+    rdfs:subClassOf <http://conference#Person> .
+
+<http://conference#Tutorial> a <http://conference#Tutorial> ;
+    owl2vec:typeOf <http://conference#Tutorial> ;
+    rdfs:subClassOf <http://conference#Conference_part> .
+
+<http://cmt#Chairman> rdfs:subClassOf <http://cmt#AssociatedChair>,
+        <http://cmt#ConferenceChair>,
+        <http://cmt#Person>,
+        <http://cmt#ProgramCommitteeChair> .
+
+<http://cmt#Decision> a <http://cmt#Decision> ;
+    owl2vec:superClassOf <http://cmt#Acceptance>,
+        <http://cmt#Rejection> ;
+    owl2vec:typeOf <http://cmt#Decision> .
+
+<http://cmt#Document> a <http://cmt#Document> ;
+    owl2vec:superClassOf <http://cmt#Paper>,
+        <http://cmt#Review> ;
+    owl2vec:typeOf <http://cmt#Document> .
+
+<http://cmt#ProgramCommitteeChair> a <http://cmt#ProgramCommitteeChair> ;
+    owl2vec:superClassOf <http://cmt#Chairman> ;
+    owl2vec:typeOf <http://cmt#ProgramCommitteeChair> ;
+    rdfs:subClassOf <http://cmt#ProgramCommitteeMember> .
+
+<http://cmt#Review> a <http://cmt#Review> ;
+    owl2vec:superClassOf <http://cmt#Meta-Review> ;
+    owl2vec:typeOf <http://cmt#Review> ;
+    rdfs:subClassOf <http://cmt#Document> .
+
+<http://cmt#User> owl2vec:superClassOf <http://cmt#Administrator>,
+        <http://cmt#Author>,
+        <http://cmt#Reviewer> ;
+    rdfs:subClassOf <http://cmt#Person> .
+
+<http://conference#Conference_contributor> owl2vec:superClassOf <http://conference#Active_conference_participant>,
+        <http://conference#Invited_speaker>,
+        <http://conference#Regular_author> ;
+    rdfs:subClassOf <http://conference#Person> .
+
+<http://conference#Invited_speaker> a <http://conference#Person> ;
+    owl2vec:superClassOf <http://conference#Active_conference_participant> ;
+    rdfs:subClassOf <http://conference#Conference_contributor>,
+        <http://conference#Person> .
+
+<http://conference#Invited_talk> a <http://conference#Conference_document> ;
+    owl2vec:superClassOf <http://conference#Conference_contribution> ;
+    rdfs:subClassOf <http://conference#Conference_document>,
+        <http://conference#Presentation> .
+
+<http://conference#Organizing_committee> a <http://conference#Organizing_committee> ;
+    owl2vec:superClassOf <http://conference#Committee> ;
+    owl2vec:typeOf <http://conference#Organizing_committee> ;
+    rdfs:subClassOf <http://conference#Committee> .
+
+<http://conference#Poster> owl2vec:superClassOf <http://conference#Conference_contribution>,
+        <http://conference#Submitted_contribution>,
+        <http://conference#Written_contribution> ;
+    rdfs:subClassOf <http://conference#Conference_contribution> .
+
+<http://conference#Program_committee> a <http://conference#Program_committee> ;
+    owl2vec:superClassOf <http://conference#Committee> ;
+    owl2vec:typeOf <http://conference#Program_committee> ;
+    rdfs:subClassOf <http://conference#Committee> .
+
+<http://conference#Review> a <http://conference#Conference_document>,
+        <http://conference#Review> ;
+    owl2vec:typeOf <http://conference#Review> ;
+    rdfs:subClassOf <http://conference#Conference_document> .
+
+<http://conference#Reviewer> a <http://conference#Person>,
+        <http://conference#Reviewer> ;
+    owl2vec:typeOf <http://conference#Reviewer> ;
+    rdfs:subClassOf <http://conference#Person> .
+
+<http://conference#Steering_committee> a <http://conference#Steering_committee> ;
+    owl2vec:superClassOf <http://conference#Committee> ;
+    owl2vec:typeOf <http://conference#Steering_committee> ;
+    rdfs:subClassOf <http://conference#Committee> .
+
+<http://conference#Track> a <http://conference#Conference_part>,
+        <http://conference#Track> ;
+    owl2vec:typeOf <http://conference#Track> ;
+    rdfs:subClassOf <http://conference#Conference_part> .
+
+<http://conference#Workshop> a <http://conference#Conference_part>,
+        <http://conference#Workshop> ;
+    owl2vec:typeOf <http://conference#Workshop> ;
+    rdfs:subClassOf <http://conference#Conference_part> .
+
+<http://cmt#Paper> a <http://cmt#Paper> ;
+    owl2vec:superClassOf <http://cmt#PaperAbstract>,
+        <http://cmt#PaperFullVersion> ;
+    owl2vec:typeOf <http://cmt#Paper> ;
+    rdfs:subClassOf <http://cmt#Document> .
+
+<http://cmt#ProgramCommitteeMember> a <http://cmt#ProgramCommitteeMember> ;
+    owl2vec:superClassOf <http://cmt#ProgramCommitteeChair> ;
+    owl2vec:typeOf <http://cmt#ProgramCommitteeMember> ;
+    rdfs:comment "The Program Committee consists of all members of the conference except for Authors who are not also Reviewers."^^xsd:string ;
+    rdfs:subClassOf <http://cmt#ConferenceMember>,
+        <http://cmt#Person> .
+
+<http://cmt#Reviewer> a <http://cmt#Reviewer> ;
+    owl2vec:superClassOf <http://cmt#Meta-Reviewer> ;
+    owl2vec:typeOf <http://cmt#Reviewer> ;
+    rdfs:subClassOf <http://cmt#ConferenceMember>,
+        <http://cmt#User> .
+
+<http://conference#Conference_participant> owl2vec:superClassOf <http://conference#Active_conference_participant>,
+        <http://conference#Passive_conference_participant> ;
+    rdfs:subClassOf <http://conference#Active_conference_participant>,
+        <http://conference#Passive_conference_participant>,
+        <http://conference#Person> .
+
+<http://conference#Paid_applicant> owl2vec:superClassOf <http://conference#Early_paid_applicant>,
+        <http://conference#Late_paid_applicant> ;
+    rdfs:subClassOf <http://conference#Early_paid_applicant>,
+        <http://conference#Late_paid_applicant>,
+        <http://conference#Registeered_applicant> .
+
+<http://conference#Presentation> a <http://conference#Presentation> ;
+    owl2vec:superClassOf <http://conference#Conference_contribution>,
+        <http://conference#Invited_talk> ;
+    owl2vec:typeOf <http://conference#Presentation> ;
+    rdfs:subClassOf <http://conference#Conference_contribution> .
+
+<http://cmt#Author> a <http://cmt#Author> ;
+    owl2vec:superClassOf <http://cmt#AuthorNotReviewer>,
+        <http://cmt#Co-author> ;
+    owl2vec:typeOf <http://cmt#Author> ;
+    rdfs:subClassOf <http://cmt#ConferenceMember>,
+        <http://cmt#User> .
+
+<http://conference#Committee_member> a <http://conference#Committee_member> ;
+    owl2vec:superClassOf <http://conference#Chair>,
+        <http://conference#Co-chair>,
+        <http://conference#Organizer> ;
+    owl2vec:typeOf <http://conference#Committee_member> ;
+    rdfs:subClassOf <http://conference#Person> .
+
+<http://conference#Regular_author> a <http://conference#Person> ;
+    owl2vec:superClassOf <http://conference#Active_conference_participant>,
+        <http://conference#Contribution_1th-author>,
+        <http://conference#Contribution_co-author> ;
+    rdfs:subClassOf <http://conference#Conference_contributor>,
+        <http://conference#Person> .
+
+<http://conference#Submitted_contribution> a <http://conference#Submitted_contribution> ;
+    owl2vec:superClassOf <http://conference#Reviewed_contribution> ;
+    owl2vec:typeOf <http://conference#Submitted_contribution> ;
+    rdfs:subClassOf <http://conference#Poster>,
+        <http://conference#Regular_contribution>,
+        <http://conference#Written_contribution> .
+
+<http://conference#Written_contribution> owl2vec:superClassOf <http://conference#Conference_contribution>,
+        <http://conference#Regular_contribution>,
+        <http://conference#Submitted_contribution> ;
+    rdfs:subClassOf <http://conference#Conference_contribution>,
+        <http://conference#Poster>,
+        <http://conference#Regular_contribution> .
+
+<http://cmt#Person> a <http://cmt#Person> ;
+    owl2vec:superClassOf <http://cmt#Chairman>,
+        <http://cmt#ConferenceMember>,
+        <http://cmt#ExternalReviewer>,
+        <http://cmt#ProgramCommitteeMember>,
+        <http://cmt#User> ;
+    owl2vec:typeOf <http://cmt#Person> .
+
+<http://conference#Active_conference_participant> a <http://conference#Active_conference_participant> ;
+    owl2vec:superClassOf <http://conference#Conference_participant> ;
+    owl2vec:typeOf <http://conference#Active_conference_participant> ;
+    rdfs:subClassOf <http://conference#Conference_contributor>,
+        <http://conference#Conference_participant>,
+        <http://conference#Invited_speaker>,
+        <http://conference#Regular_author> .
+
+<http://conference#Conference_part> a <http://conference#Conference_part> ;
+    owl2vec:superClassOf <http://conference#Track>,
+        <http://conference#Tutorial>,
+        <http://conference#Workshop> ;
+    owl2vec:typeOf <http://conference#Conference_part>,
+        <http://conference#Track>,
+        <http://conference#Workshop> .
+
+<http://conference#Reviewed_contribution> a <http://conference#Reviewed_contribution> ;
+    owl2vec:superClassOf <http://conference#Accepted_contribution>,
+        <http://conference#Rejected_contribution> ;
+    owl2vec:typeOf <http://conference#Reviewed_contribution> ;
+    rdfs:subClassOf <http://conference#Accepted_contribution>,
+        <http://conference#Rejected_contribution>,
+        <http://conference#Submitted_contribution> .
+
+<http://cmt#ConferenceMember> a <http://cmt#ConferenceMember> ;
+    owl2vec:superClassOf <http://cmt#AssociatedChair>,
+        <http://cmt#Author>,
+        <http://cmt#ConferenceChair>,
+        <http://cmt#ProgramCommitteeMember>,
+        <http://cmt#Reviewer> ;
+    owl2vec:typeOf <http://cmt#ConferenceMember> ;
+    rdfs:subClassOf <http://cmt#Person> .
+
+<http://conference#Committee> a <http://conference#Committee> ;
+    owl2vec:superClassOf <http://conference#Organizing_committee>,
+        <http://conference#Program_committee>,
+        <http://conference#Steering_committee> ;
+    owl2vec:typeOf <http://conference#Committee> ;
+    rdfs:subClassOf <http://conference#Organizing_committee>,
+        <http://conference#Program_committee>,
+        <http://conference#Steering_committee> .
+
+<http://conference#Regular_contribution> owl2vec:superClassOf <http://conference#Conference_contribution>,
+        <http://conference#Extended_abstract>,
+        <http://conference#Paper>,
+        <http://conference#Submitted_contribution>,
+        <http://conference#Written_contribution> ;
+    rdfs:subClassOf <http://conference#Extended_abstract>,
+        <http://conference#Paper>,
+        <http://conference#Written_contribution> .
+
+<http://conference#Conference_contribution> a <http://conference#Conference_contribution>,
+        <http://conference#Conference_document> ;
+    owl2vec:superClassOf <http://conference#Poster>,
+        <http://conference#Presentation>,
+        <http://conference#Written_contribution> ;
+    owl2vec:typeOf <http://conference#Conference_contribution> ;
+    rdfs:subClassOf <http://conference#Conference_document>,
+        <http://conference#Invited_talk>,
+        <http://conference#Poster>,
+        <http://conference#Presentation>,
+        <http://conference#Regular_contribution>,
+        <http://conference#Written_contribution> .
+
+<http://conference#Conference_document> a <http://conference#Conference_document> ;
+    owl2vec:superClassOf <http://conference#Call_for_paper>,
+        <http://conference#Call_for_participation>,
+        <http://conference#Conference_announcement>,
+        <http://conference#Conference_contribution>,
+        <http://conference#Conference_www>,
+        <http://conference#Information_for_participants>,
+        <http://conference#Invited_talk>,
+        <http://conference#Review> ;
+    owl2vec:typeOf <http://conference#Conference_contribution>,
+        <http://conference#Conference_document>,
+        <http://conference#Invited_talk>,
+        <http://conference#Review> .
+
+<http://conference#Person> a <http://conference#Person> ;
+    owl2vec:superClassOf <http://conference#Committee_member>,
+        <http://conference#Conference_applicant>,
+        <http://conference#Conference_contributor>,
+        <http://conference#Conference_participant>,
+        <http://conference#Invited_speaker>,
+        <http://conference#Regular_author>,
+        <http://conference#Reviewer>,
+        <http://conference#Track-workshop_chair> ;
+    owl2vec:typeOf <http://conference#Invited_speaker>,
+        <http://conference#Person>,
+        <http://conference#Regular_author>,
+        <http://conference#Reviewer> .
+

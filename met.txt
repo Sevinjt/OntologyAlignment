@@ -1,0 +1,124 @@
+In this modified version, the get_edge_confidence method is added to obtain the confidence value of an edge. This example assumes that edges have a 'confidence' attribute. You should replace this method with your own logic to determine the confidence of an edge.
+
+The extract_random_walks method is also modified to calculate a probability distribution for neighbor selection based on their confidence values. The np.random.choice function is then used to choose a neighbor based on this probability distribution.
+
+
+ 
+from owl2vec_star.rdf2vec.walkers.walker import Walker
+from owl2vec_star.rdf2vec.graph import Vertex
+import numpy as np
+from hashlib import md5
+
+
+class RandomWalker(Walker):
+    def __init__(self, depth, walks_per_graph):
+        super(RandomWalker, self).__init__(depth, walks_per_graph)
+
+    def get_edge_confidence(self, node, neighbor):
+        # Define a method to get the confidence value of an edge
+        # This example assumes edges have a 'confidence' attribute
+        confidence = node.edges[neighbor].get('confidence', 1.0)
+        return confidence
+
+    def extract_random_walks(self, graph, root):
+        """Extract random walks of depth - 1 hops rooted in root."""
+        # Initialize one walk of length 1 (the root)
+        walks = {(root,)}
+
+        for i in range(self.depth):
+            walks_copy = walks.copy()
+            for walk in walks_copy:
+                node = walk[-1]
+                neighbors = graph.get_neighbors(node)
+
+                if len(neighbors) > 0:
+                    walks.remove(walk)
+
+                # Calculate the probability distribution for neighbor selection
+                confidences = [self.get_edge_confidence(node, neighbor) for neighbor in neighbors]
+                total_confidence = sum(confidences)
+                probabilities = [confidence / total_confidence for confidence in confidences]
+
+                # Choose a neighbor based on the probability distribution
+                chosen_neighbor = np.random.choice(neighbors, p=probabilities)
+                walks.add(walk + (chosen_neighbor, ))
+
+            if self.walks_per_graph is not None:
+                n_walks = min(len(walks),  self.walks_per_graph)
+                walks_ix = np.random.choice(range(len(walks)), replace=False,
+                                            size=n_walks)
+                if len(walks_ix) > 0:
+                    walks_list = list(walks)
+                    walks = {walks_list[ix] for ix in walks_ix}
+
+        return list(walks)
+
+    def extract(self, graph, instances):
+        canonical_walks = set()
+        for instance in instances:
+            walks = self.extract_random_walks(graph, Vertex(str(instance)))
+            for walk in walks:
+                canonical_walk = []
+                for i, hop in enumerate(walk):
+                    if i == 0 or i % 2 == 1:
+                        canonical_walk.append(hop.name)
+                    else:
+                        canonical_walk.append(hop.name)
+
+                canonical_walks.add(tuple(canonical_walk))
+
+        return canonical_walks
+
+
+
+
+
+----------------------------
+
+
+def extract_edges(graph):
+    edges = []
+
+    # Extract subclass relationships
+    for s, p, o in graph.triples((None, rdflib.OWL.subClassOf, None)):
+        edges.append((s, 'subClassOf', o))
+
+    # Extract object property relationships
+    for s, p, o in graph.triples((None, rdflib.RDF.type, rdflib.OWL.ObjectProperty)):
+        domain = graph.value(s, rdflib.OWL.domain)
+        range_ = graph.value(s, rdflib.OWL.range)
+        if domain and range_:
+            edges.append((domain, s, range_))
+
+    # Extract individual property relationships
+    for s, p, o in graph.triples((None, rdflib.RDF.type, rdflib.OWL.NamedIndividual)):
+        for s2, p2, o2 in graph.triples((s, None, None)):
+            if p2 != rdflib.RDF.type:
+                edges.append((s, p2, o2))
+
+    return edges
+
+edges = extract_edges(g)
+
+______________
+
+import rdflib
+
+g = rdflib.Graph()
+g.parse("path/to/your/ontology.owl", format="xml")
+
+# Define the URIs for the custom annotation property and the edge you're interested in
+confidence_property = rdflib.URIRef("http://example.com/confidence")
+edge = rdflib.URIRef("http://example.com/hasSymptom")
+
+# Query the graph for the confidence value associated with the edge
+qres = g.query("""
+    SELECT ?confidence
+    WHERE {
+        ?edge <%s> ?confidence .
+    }
+""" % (confidence_property))
+
+# Print the confidence value
+for row in qres:
+    print("Confidence: %s" % row[0])
